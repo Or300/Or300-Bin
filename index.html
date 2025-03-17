@@ -41,6 +41,10 @@
     .message {
       margin-bottom: 10px;
     }
+    .settings-container {
+      margin-top: 20px;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -63,6 +67,18 @@
     <div class="chat-messages" id="messages"></div>
     <input type="text" id="message-input" placeholder="Type your message here..." />
     <button id="send-message">Send</button>
+  </div>
+
+  <!-- Settings Section -->
+  <div class="settings-container">
+    <h3>Settings</h3>
+    <label for="text-color">Select Text Color:</label>
+    <input type="color" id="text-color" name="text-color" value="#ffffff">
+    <br><br>
+    <label for="username-color">Select Username Color:</label>
+    <input type="color" id="username-color" name="username-color" value="#ff00ff">
+    <br><br>
+    <button id="save-settings">Save Settings</button>
   </div>
 
   <script src="chat.js"></script>
