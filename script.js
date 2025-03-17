@@ -1,35 +1,121 @@
-function saveText() {
-  const inputText = document.getElementById("inputText").value;
-  if (!inputText) {
-    alert("Please enter some text!");
-    return;
-  }
+// Firebase config (replace with your values)
+const firebaseConfig = {
+  apiKey: "YOUR-API-KEY",
+  authDomain: "YOUR-AUTH-DOMAIN",
+  projectId: "YOUR-PROJECT-ID",
+  storageBucket: "YOUR-STORAGE-BUCKET",
+  messagingSenderId: "YOUR-MESSAGING-SENDER-ID",
+  appId: "YOUR-APP-ID"
+};
 
-  // Get existing archives from localStorage
-  let archives = JSON.parse(localStorage.getItem("archives")) || [];
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-  // Add new text to the archive
-  archives.push(inputText);
-  localStorage.setItem("archives", JSON.stringify(archives));
+let currentRoom = null;
 
-  // Refresh the list
-  displayArchives();
-  document.getElementById("inputText").value = "";
+// Sign Up
+function signUp() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(userCredential => {
+      alert("Account created!");
+    })
+    .catch(error => alert(error.message));
 }
 
-function displayArchives() {
-  const archiveList = document.getElementById("archiveList");
-  archiveList.innerHTML = ""; // Clear existing list
+// Login
+function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-  let archives = JSON.parse(localStorage.getItem("archives")) || [];
+  auth.signInWithEmailAndPassword(email, password)
+    .then(userCredential => {
+      showUI();
+    })
+    .catch(error => alert(error.message));
+}
 
-  archives.forEach((text, index) => {
-    const div = document.createElement("div");
-    div.className = "archive-item";
-    div.innerHTML = `<strong>Entry #${index + 1}</strong><br>${text}`;
-    archiveList.appendChild(div);
+// Logout
+function logout() {
+  auth.signOut().then(() => {
+    hideUI();
   });
 }
 
-// Load archives on page load
-window.onload = displayArchives;
+// Show UI after login
+function showUI() {
+  document.getElementById("auth").style.display = "none";
+  document.getElementById("userInfo").style.display = "block";
+  document.getElementById("chatroomForm").style.display = "block";
+  document.getElementById("displayName").innerText = `Logged in as: ${auth.currentUser.email}`;
+  document.querySelector("button[onclick='logout()']").style.display = "block";
+}
+
+// Hide UI after logout
+function hideUI() {
+  document.getElementById("auth").style.display = "block";
+  document.getElementById("userInfo").style.display = "none";
+  document.getElementById("chatroomForm").style.display = "none";
+  document.querySelector("button[onclick='logout()']").style.display = "none";
+}
+
+// Firebase Auth State Listener
+auth.onAuthStateChanged(user => {
+  if (user) {
+    showUI();
+  } else {
+    hideUI();
+  }
+});
+
+// Create or Join Room
+function createRoom() {
+  currentRoom = document.getElementById('roomName').value;
+  if (currentRoom) {
+    document.getElementById('chatroom').style.display = 'block';
+    displayMessages();
+  }
+}
+
+// Send Message
+function sendMessage() {
+  const inputText = document.getElementById('inputText').value;
+  if (!inputText || !currentRoom) return;
+
+  db.collection('chatrooms')
+    .doc(currentRoom)
+    .collection('messages')
+    .add({
+      text: inputText,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      user: auth.currentUser.email
+    });
+
+  document.getElementById('inputText').value = '';
+}
+
+// Display Messages
+function displayMessages() {
+  const messagesDiv = document.getElementById('messages');
+  messagesDiv.innerHTML = '';
+
+  db.collection('chatrooms')
+    .doc(currentRoom)
+    .collection('messages')
+    .orderBy('createdAt')
+    .onSnapshot(snapshot => {
+      messagesDiv.innerHTML = '';
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const message = `
+          <div class="message">
+            <strong>${data.user}:</strong> ${data.text}
+          </div>`;
+        messagesDiv.innerHTML += message;
+      });
+    });
+}
