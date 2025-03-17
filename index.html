@@ -46,14 +46,15 @@
 <body>
 
   <h1>OR300 Bin Chat</h1>
+  
   <div>
     <input type="text" id="username" placeholder="Enter a username" />
-    <button onclick="setUsername()">Set Username</button>
+    <button id="set-username">Set Username</button>
   </div>
 
   <div class="chat-room-container">
-    <button onclick="showChatrooms()">View Chatrooms</button>
-    <button onclick="createChatroom()">Create Chatroom</button>
+    <button id="view-chatrooms">View Chatrooms</button>
+    <button id="create-chatroom">Create Chatroom</button>
     <div id="chatroom-list"></div>
   </div>
 
@@ -61,7 +62,7 @@
     <h3>Chatroom: <span id="current-chatroom-name"></span></h3>
     <div class="chat-messages" id="messages"></div>
     <input type="text" id="message-input" placeholder="Type your message here..." />
-    <button onclick="sendMessage()">Send</button>
+    <button id="send-message">Send</button>
   </div>
 
   <script src="chat.js"></script>
