@@ -15,7 +15,6 @@ document.getElementById('save-settings').addEventListener('click', saveSettings)
 function setUsername() {
   username = document.getElementById('username').value;
 
-  // Prevent restricted names like 'Or300', 'Oreo', and similar variations
   if (isRestrictedUsername(username)) {
     alert('This username is restricted. Please choose a different name.');
     return;
@@ -32,10 +31,13 @@ function setUsername() {
 
 function showChatrooms() {
   const chatroomList = document.getElementById('chatroom-list');
-  chatroomList.innerHTML = '';
+  chatroomList.innerHTML = ''; // Clear chatroom list
+
   if (chatrooms.length === 0) {
     chatroomList.innerHTML = 'No chatrooms available.';
+    return;
   }
+
   chatrooms.forEach(chatroom => {
     const chatroomButton = document.createElement('button');
     chatroomButton.innerText = chatroom.name;
@@ -53,8 +55,10 @@ function createChatroom() {
     messages: []
   };
 
+  // Add chatroom to localStorage and update list
   chatrooms.push(newChatroom);
   localStorage.setItem('chatrooms', JSON.stringify(chatrooms));
+
   showChatrooms();
 }
 
@@ -69,7 +73,8 @@ function joinChatroom(chatroomName) {
 
 function displayMessages() {
   const messagesDiv = document.getElementById('messages');
-  messagesDiv.innerHTML = '';
+  messagesDiv.innerHTML = ''; // Clear old messages
+
   currentChatroom.messages.forEach(message => {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message');
