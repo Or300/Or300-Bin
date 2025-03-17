@@ -22,35 +22,26 @@ h1 {
   color: #a020f0;
 }
 
-#auth button {
-  background-color: #a020f0;
-  color: white;
-  border: none;
-  padding: 10px;
-  width: 100%;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-bottom: 10px;
-}
-
-#auth button:hover {
-  background-color: #800080;
-}
-
-#userInfo img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
-
-#roomName, #inputText {
+input, textarea, button {
   width: 100%;
   padding: 10px;
-  border: 1px solid #a020f0;
+  margin-top: 10px;
   background-color: #000;
   color: #a020f0;
-  border-radius: 5px;
-  margin-top: 10px;
+  border: 1px solid #a020f0;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #a020f0;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #800080;
 }
 
 #messages {
@@ -61,16 +52,10 @@ h1 {
   margin-bottom: 10px;
 }
 
-button {
-  background-color: #a020f0;
-  color: #fff;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  margin-top: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #800080;
+.message {
+  margin-bottom: 10px;
+  padding: 5px;
+  background-color: #1a1a1a;
+  border-radius: 4px;
+  color: #a020f0;
 }
