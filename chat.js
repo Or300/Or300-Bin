@@ -6,6 +6,11 @@ if (username) {
   document.getElementById('username').value = username;
 }
 
+document.getElementById('set-username').addEventListener('click', setUsername);
+document.getElementById('view-chatrooms').addEventListener('click', showChatrooms);
+document.getElementById('create-chatroom').addEventListener('click', createChatroom);
+document.getElementById('send-message').addEventListener('click', sendMessage);
+
 function setUsername() {
   username = document.getElementById('username').value;
   if (!username) {
@@ -19,6 +24,9 @@ function setUsername() {
 function showChatrooms() {
   const chatroomList = document.getElementById('chatroom-list');
   chatroomList.innerHTML = '';
+  if (chatrooms.length === 0) {
+    chatroomList.innerHTML = 'No chatrooms available.';
+  }
   chatrooms.forEach(chatroom => {
     const chatroomButton = document.createElement('button');
     chatroomButton.innerText = chatroom.name;
