@@ -1,46 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Oreo Bin</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OR300 Bin Chat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1d1d1d;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff00ff;
+    }
+    .chat-room-container {
+      margin-top: 20px;
+    }
+    button {
+      background-color: #4caf50;
+      padding: 10px 20px;
+      border: none;
+      color: white;
+      cursor: pointer;
+      margin: 5px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 300px;
+      margin-top: 10px;
+    }
+    .chat-messages {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .message {
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Oreo Bin</h1>
 
-    <!-- Sign-Up / Login Form -->
-    <div id="auth">
-      <input id="email" type="email" placeholder="Email" />
-      <input id="password" type="password" placeholder="Password" />
-      <button onclick="signUp()">Sign Up</button>
-      <button onclick="login()">Login</button>
-      <button onclick="logout()" style="display:none;">Logout</button>
-    </div>
-
-    <!-- User Info -->
-    <div id="userInfo" style="display:none;">
-      <p id="displayName"></p>
-    </div>
-
-    <!-- Create/Join Chatroom -->
-    <div id="chatroomForm" style="display:none;">
-      <input id="roomName" placeholder="Create or join room..." />
-      <button onclick="createRoom()">Go</button>
-    </div>
-
-    <!-- Chatroom Messages -->
-    <div id="chatroom" style="display:none;">
-      <div id="messages"></div>
-      <textarea id="inputText" placeholder="Type your message..."></textarea>
-      <button onclick="sendMessage()">Send</button>
-    </div>
+  <h1>OR300 Bin Chat</h1>
+  <div>
+    <input type="text" id="username" placeholder="Enter a username" />
+    <button onclick="setUsername()">Set Username</button>
   </div>
 
-  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore-compat.js"></script>
-  <script src="script.js"></script>
+  <div class="chat-room-container">
+    <button onclick="showChatrooms()">View Chatrooms</button>
+    <button onclick="createChatroom()">Create Chatroom</button>
+    <div id="chatroom-list"></div>
+  </div>
+
+  <div id="chat-container" style="display:none;">
+    <h3>Chatroom: <span id="current-chatroom-name"></span></h3>
+    <div class="chat-messages" id="messages"></div>
+    <input type="text" id="message-input" placeholder="Type your message here..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script src="chat.js"></script>
 </body>
 </html>
