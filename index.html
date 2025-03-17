@@ -10,20 +10,22 @@
   <div class="container">
     <h1>Oreo Bin</h1>
 
-    <!-- Sign-In/Out -->
+    <!-- Sign-Up / Login Form -->
     <div id="auth">
-      <button id="signInBtn" onclick="signInWithGoogle()">Sign In with Google</button>
-      <button id="signOutBtn" onclick="signOut()" style="display:none;">Sign Out</button>
+      <input id="email" type="email" placeholder="Email" />
+      <input id="password" type="password" placeholder="Password" />
+      <button onclick="signUp()">Sign Up</button>
+      <button onclick="login()">Login</button>
+      <button onclick="logout()" style="display:none;">Logout</button>
     </div>
 
     <!-- User Info -->
     <div id="userInfo" style="display:none;">
-      <img id="userPic" alt="Profile Picture" />
-      <p id="userName"></p>
+      <p id="displayName"></p>
     </div>
 
-    <!-- Create Chatroom -->
-    <div id="chatroomForm">
+    <!-- Create/Join Chatroom -->
+    <div id="chatroomForm" style="display:none;">
       <input id="roomName" placeholder="Create or join room..." />
       <button onclick="createRoom()">Go</button>
     </div>
