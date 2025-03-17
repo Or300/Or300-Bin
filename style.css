@@ -1,70 +1,76 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #000; /* Black background */
-    color: #a020f0; /* Purple text */
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: #a020f0;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .container {
-    width: 100%;
-    max-width: 600px;
-    background-color: #1a1a1a; /* Dark gray for contrast */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Stronger shadow for depth */
+  width: 100%;
+  max-width: 600px;
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
 }
 
 h1 {
-    text-align: center;
-    color: #a020f0; /* Purple heading */
+  text-align: center;
+  color: #a020f0;
 }
 
-textarea {
-    width: 100%;
-    height: 150px;
-    padding: 10px;
-    border: 1px solid #a020f0; /* Purple border */
-    background-color: #000;
-    color: #a020f0; /* Purple text */
-    border-radius: 4px;
-    box-sizing: border-box;
-    resize: none;
-    font-size: 16px;
+#auth button {
+  background-color: #a020f0;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+#auth button:hover {
+  background-color: #800080;
+}
+
+#userInfo img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+#roomName, #inputText {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #a020f0;
+  background-color: #000;
+  color: #a020f0;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#messages {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #a020f0;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
 button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #a020f0; /* Purple button */
-    color: #fff; /* White text */
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s ease;
+  background-color: #a020f0;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 5px;
+  cursor: pointer;
 }
 
 button:hover {
-    background-color: #800080; /* Darker purple on hover */
-}
-
-#archiveList {
-    margin-top: 20px;
-    max-height: 300px;
-    overflow-y: auto;
-    border-top: 1px solid #a020f0; /* Purple top border */
-    padding-top: 10px;
-}
-
-.archive-item {
-    background-color: #1a1a1a;
-    color: #a020f0;
-    padding: 10px;
-    margin-bottom: 5px;
-    border: 1px solid #a020f0;
-    border-radius: 4px;
+  background-color: #800080;
 }
