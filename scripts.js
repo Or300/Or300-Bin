@@ -1,7 +1,7 @@
 // Mock data (In a real implementation, this would be a database)
 let chatrooms = JSON.parse(localStorage.getItem('chatrooms')) || [];
-
 let username = '';
+let currentChatroom = null;
 
 function setUsername() {
   username = document.getElementById('username').value;
@@ -19,6 +19,7 @@ function createChatroom() {
   const newChatroom = {
     name: chatroomName,
     members: [username],
+    messages: []
   };
 
   chatrooms.push(newChatroom);
@@ -51,5 +52,51 @@ function displayChatrooms(rooms = chatrooms) {
 }
 
 function joinChatroom(index) {
-  alert(`Joining ${chatrooms[index].name}...`);
+  currentChatroom = chatrooms[index];
+  document.getElementById('chatroom-name-display').innerText = `Chatroom: ${currentChatroom.name}`;
+  document.getElementById('chatrooms-list').style.display = 'none'; // Hide chatrooms list
+  document.getElementById('chatroom-interface').style.display = 'block'; // Show chatroom interface
+
+  displayMessages();
+}
+
+function displayMessages() {
+  const messagesDisplay = document.getElementById('messages-display');
+  messagesDisplay.innerHTML = ''; // Clear previous messages
+
+  if (currentChatroom && currentChatroom.messages) {
+    currentChatroom.messages.forEach((message) => {
+      const messageElement = document.createElement('p');
+      messageElement.innerText = `${message.username}: ${message.content}`;
+      messagesDisplay.appendChild(messageElement);
+    });
+  }
+}
+
+function handleChatInput(event) {
+  if (event.key === 'Enter') {
+    sendMessage();
+  }
+}
+
+function sendMessage() {
+  const messageInput = document.getElementById('chat-input');
+  const messageContent = messageInput.value;
+
+  if (messageContent) {
+    const newMessage = {
+      username: username,
+      content: messageContent
+    };
+
+    // Add message to the current chatroom
+    currentChatroom.messages.push(newMessage);
+    localStorage.setItem('chatrooms', JSON.stringify(chatrooms));
+
+    // Display the new message in the chat interface
+    displayMessages();
+
+    // Clear the input field
+    messageInput.value = '';
+  }
 }
