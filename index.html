@@ -3,84 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OR300 Bin Chat</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #1d1d1d;
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
-    h1 {
-      color: #ff00ff;
-    }
-    .chat-room-container {
-      margin-top: 20px;
-    }
-    button {
-      background-color: #4caf50;
-      padding: 10px 20px;
-      border: none;
-      color: white;
-      cursor: pointer;
-      margin: 5px;
-    }
-    input[type="text"] {
-      padding: 10px;
-      width: 300px;
-      margin-top: 10px;
-    }
-    .chat-messages {
-      margin-top: 20px;
-      padding: 10px;
-      border: 1px solid #ddd;
-      max-height: 300px;
-      overflow-y: auto;
-    }
-    .message {
-      margin-bottom: 10px;
-    }
-    .settings-container {
-      margin-top: 20px;
-      display: none;
-    }
-  </style>
+  <title>Or300 Bin</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <h1>OR300 Bin Chat</h1>
-  
-  <div>
-    <input type="text" id="username" placeholder="Enter a username" />
-    <button id="set-username">Set Username</button>
+  <div class="container">
+    <h1>Welcome to Or300 Bin</h1>
+    <div class="username-section">
+      <input type="text" id="username" placeholder="Enter your username">
+      <button onclick="setUsername()">Set Username</button>
+    </div>
+    <div class="chatroom-section">
+      <input type="text" id="chatroom-name" placeholder="Enter Chatroom Name">
+      <button onclick="createChatroom()">Create Chatroom</button>
+      <input type="text" id="search-chatroom" placeholder="Search for Chatrooms">
+      <button onclick="searchChatrooms()">Search</button>
+    </div>
+    <div id="chatrooms-list">
+      <!-- Chatrooms will appear here -->
+    </div>
   </div>
 
-  <div class="chat-room-container">
-    <button id="view-chatrooms">View Chatrooms</button>
-    <button id="create-chatroom">Create Chatroom</button>
-    <div id="chatroom-list"></div>
-  </div>
-
-  <div id="chat-container" style="display:none;">
-    <h3>Chatroom: <span id="current-chatroom-name"></span></h3>
-    <div class="chat-messages" id="messages"></div>
-    <input type="text" id="message-input" placeholder="Type your message here..." />
-    <button id="send-message">Send</button>
-  </div>
-
-  <!-- Settings Section -->
-  <div class="settings-container">
-    <h3>Settings</h3>
-    <label for="text-color">Select Text Color:</label>
-    <input type="color" id="text-color" name="text-color" value="#ffffff">
-    <br><br>
-    <label for="username-color">Select Username Color:</label>
-    <input type="color" id="username-color" name="username-color" value="#ff00ff">
-    <br><br>
-    <button id="save-settings">Save Settings</button>
-  </div>
-
-  <script src="chat.js"></script>
+  <script src="scripts.js"></script>
 </body>
 </html>
