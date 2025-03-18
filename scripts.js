@@ -100,3 +100,9 @@ function sendMessage() {
     messageInput.value = '';
   }
 }
+
+function leaveChatroom() {
+  currentChatroom = null;
+  document.getElementById('chatrooms-list').style.display = 'block'; // Show chatrooms list
+  document.getElementById('chatroom-interface').style.display = 'none'; // Hide chatroom interface
+}
