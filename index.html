@@ -22,6 +22,14 @@
     <div id="chatrooms-list">
       <!-- Chatrooms will appear here -->
     </div>
+    
+    <!-- Chat Room Interface -->
+    <div id="chatroom-interface" style="display:none;">
+      <h3 id="chatroom-name-display"></h3>
+      <div id="messages-display" style="height: 300px; overflow-y: scroll; margin-bottom: 10px; border: 1px solid #ccc; padding: 10px;"></div>
+      <input type="text" id="chat-input" placeholder="Type a message..." onkeydown="handleChatInput(event)">
+      <button onclick="sendMessage()">Send</button>
+    </div>
   </div>
 
   <script src="scripts.js"></script>
