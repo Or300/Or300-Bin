@@ -3,36 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Or300 Bin</title>
+  <title>Oreo's Chatrooms</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Welcome to Or300 Bin</h1>
+    <header>
+      <h1>Welcome to Oreo's Chatrooms</h1>
+      <p>Join or create chatrooms and talk with real people!</p>
+    </header>
+    
+    <!-- Username Input -->
     <div class="username-section">
-      <input type="text" id="username" placeholder="Enter your username">
+      <label for="username">Enter your username:</label>
+      <input type="text" id="username" placeholder="Enter a unique username" />
       <button onclick="setUsername()">Set Username</button>
     </div>
+    
+    <!-- Chatroom Management -->
     <div class="chatroom-section">
-      <input type="text" id="chatroom-name" placeholder="Enter Chatroom Name">
-      <button onclick="createChatroom()">Create Chatroom</button>
-      <input type="text" id="search-chatroom" placeholder="Search for Chatrooms">
-      <button onclick="searchChatrooms()">Search</button>
-    </div>
-    <div id="chatrooms-list">
-      <!-- Chatrooms will appear here -->
+      <h2>Available Chatrooms</h2>
+      <ul id="chatroom-list"></ul>
+      <button onclick="showCreateChatroom()">Create Chatroom</button>
     </div>
     
-    <!-- Chat Room Interface -->
-    <div id="chatroom-interface" style="display:none;">
-      <h3 id="chatroom-name-display"></h3>
-      <div id="messages-display" style="height: 300px; overflow-y: scroll; margin-bottom: 10px; border: 1px solid #ccc; padding: 10px;"></div>
-      <input type="text" id="chat-input" placeholder="Type a message..." onkeydown="handleChatInput(event)">
+    <!-- Create Chatroom -->
+    <div id="create-chatroom" class="create-chatroom hidden">
+      <h2>Create a new chatroom</h2>
+      <input type="text" id="new-chatroom-name" placeholder="Enter chatroom name" />
+      <button onclick="createChatroom()">Create</button>
+    </div>
+    
+    <!-- Chat Window -->
+    <div id="chat-window" class="hidden">
+      <h2 id="chatroom-title"></h2>
+      <div id="messages"></div>
+      <input type="text" id="message-input" placeholder="Type your message..." />
       <button onclick="sendMessage()">Send</button>
-      <button onclick="leaveChatroom()">Leave Chatroom</button>
     </div>
   </div>
 
-  <script src="scripts.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
