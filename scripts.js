@@ -1,108 +1,80 @@
-// Mock data (In a real implementation, this would be a database)
-let chatrooms = JSON.parse(localStorage.getItem('chatrooms')) || [];
 let username = '';
-let currentChatroom = null;
+let currentChatroom = '';
+const chatroomList = document.getElementById('chatroom-list');
+const messagesDiv = document.getElementById('messages');
+const messageInput = document.getElementById('message-input');
+const chatWindow = document.getElementById('chat-window');
+const chatroomTitle = document.getElementById('chatroom-title');
+const createChatroomDiv = document.getElementById('create-chatroom');
 
+// Mock chatrooms (this would be dynamic in a real app)
+let chatrooms = ['General', 'Games', 'Music'];
+
+// Set the username
 function setUsername() {
   username = document.getElementById('username').value;
-  alert(`Username set to: ${username}`);
-}
-
-function createChatroom() {
-  const chatroomName = document.getElementById('chatroom-name').value;
-  
-  if (!chatroomName) {
-    alert('Please enter a chatroom name.');
-    return;
+  if (username) {
+    alert(`Username set to: ${username}`);
+    loadChatrooms();
+  } else {
+    alert('Please enter a username.');
   }
-
-  const newChatroom = {
-    name: chatroomName,
-    members: [username],
-    messages: []
-  };
-
-  chatrooms.push(newChatroom);
-  localStorage.setItem('chatrooms', JSON.stringify(chatrooms));
-  alert(`Chatroom ${chatroomName} created!`);
-
-  displayChatrooms();
 }
 
-function searchChatrooms() {
-  const searchQuery = document.getElementById('search-chatroom').value.toLowerCase();
-  const filteredChatrooms = chatrooms.filter((room) => room.name.toLowerCase().includes(searchQuery));
-
-  displayChatrooms(filteredChatrooms);
-}
-
-function displayChatrooms(rooms = chatrooms) {
-  const chatroomsList = document.getElementById('chatrooms-list');
-  chatroomsList.innerHTML = '';
-
-  rooms.forEach((room, index) => {
-    const chatroomElement = document.createElement('div');
-    chatroomElement.classList.add('chatroom');
-    chatroomElement.innerHTML = `
-      <h3>${room.name}</h3>
-      <button onclick="joinChatroom(${index})">Join Chatroom</button>
-    `;
-    chatroomsList.appendChild(chatroomElement);
+// Show the chatrooms
+function loadChatrooms() {
+  chatroomList.innerHTML = '';
+  chatrooms.forEach(room => {
+    const li = document.createElement('li');
+    li.textContent = room;
+    li.onclick = () => joinChatroom(room);
+    chatroomList.appendChild(li);
   });
 }
 
-function joinChatroom(index) {
-  currentChatroom = chatrooms[index];
-  document.getElementById('chatroom-name-display').innerText = `Chatroom: ${currentChatroom.name}`;
-  document.getElementById('chatrooms-list').style.display = 'none'; // Hide chatrooms list
-  document.getElementById('chatroom-interface').style.display = 'block'; // Show chatroom interface
-
-  displayMessages();
+// Show the create chatroom form
+function showCreateChatroom() {
+  createChatroomDiv.classList.remove('hidden');
 }
 
-function displayMessages() {
-  const messagesDisplay = document.getElementById('messages-display');
-  messagesDisplay.innerHTML = ''; // Clear previous messages
-
-  if (currentChatroom && currentChatroom.messages) {
-    currentChatroom.messages.forEach((message) => {
-      const messageElement = document.createElement('p');
-      messageElement.innerText = `${message.username}: ${message.content}`;
-      messagesDisplay.appendChild(messageElement);
-    });
+// Create a new chatroom
+function createChatroom() {
+  const newRoomName = document.getElementById('new-chatroom-name').value;
+  if (newRoomName) {
+    chatrooms.push(newRoomName);
+    alert(`Chatroom '${newRoomName}' created!`);
+    loadChatrooms();
+    createChatroomDiv.classList.add('hidden');
+  } else {
+    alert('Please enter a chatroom name.');
   }
 }
 
-function handleChatInput(event) {
-  if (event.key === 'Enter') {
-    sendMessage();
+// Join a selected chatroom
+function joinChatroom(room) {
+  currentChatroom = room;
+  chatroomTitle.textContent = `Chatroom: ${room}`;
+  chatWindow.classList.remove('hidden');
+  loadMessages(room);
+}
+
+// Load chat messages (this would be dynamic in a real app)
+function loadMessages(room) {
+  messagesDiv.innerHTML = '';
+  for (let i = 0; i < 10; i++) {
+    const msg = document.createElement('p');
+    msg.textContent = `Message ${i + 1} in ${room}...`;
+    messagesDiv.appendChild(msg);
   }
 }
 
+// Send a message
 function sendMessage() {
-  const messageInput = document.getElementById('chat-input');
-  const messageContent = messageInput.value;
-
-  if (messageContent) {
-    const newMessage = {
-      username: username,
-      content: messageContent
-    };
-
-    // Add message to the current chatroom
-    currentChatroom.messages.push(newMessage);
-    localStorage.setItem('chatrooms', JSON.stringify(chatrooms));
-
-    // Display the new message in the chat interface
-    displayMessages();
-
-    // Clear the input field
-    messageInput.value = '';
+  const message = messageInput.value;
+  if (message) {
+    const msg = document.createElement('p');
+    msg.textContent = `${username}: ${message}`;
+    messagesDiv.appendChild(msg);
+    messageInput.value = ''; // Clear the input
   }
-}
-
-function leaveChatroom() {
-  currentChatroom = null;
-  document.getElementById('chatrooms-list').style.display = 'block'; // Show chatrooms list
-  document.getElementById('chatroom-interface').style.display = 'none'; // Hide chatroom interface
 }
