@@ -1,48 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oreo's Chatrooms</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Welcome to Oreo's Chatrooms</h1>
-      <p>Join or create chatrooms and talk with real people!</p>
-    </header>
-    
-    <!-- Username Input -->
-    <div class="username-section">
-      <label for="username">Enter your username:</label>
-      <input type="text" id="username" placeholder="Enter a unique username" />
-      <button onclick="setUsername()">Set Username</button>
+    <div class="container">
+        <h1>Random Number Generator</h1>
+        <div class="generator">
+            <button onclick="generateRandomNumber()">Generate</button>
+            <p id="randomNumber">0</p>
+        </div>
     </div>
-    
-    <!-- Chatroom Management -->
-    <div class="chatroom-section">
-      <h2>Available Chatrooms</h2>
-      <ul id="chatroom-list"></ul>
-      <button onclick="showCreateChatroom()">Create Chatroom</button>
-    </div>
-    
-    <!-- Create Chatroom -->
-    <div id="create-chatroom" class="create-chatroom hidden">
-      <h2>Create a new chatroom</h2>
-      <input type="text" id="new-chatroom-name" placeholder="Enter chatroom name" />
-      <button onclick="createChatroom()">Create</button>
-    </div>
-    
-    <!-- Chat Window -->
-    <div id="chat-window" class="hidden">
-      <h2 id="chatroom-title"></h2>
-      <div id="messages"></div>
-      <input type="text" id="message-input" placeholder="Type your message..." />
-      <button onclick="sendMessage()">Send</button>
-    </div>
-  </div>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
