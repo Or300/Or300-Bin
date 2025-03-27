@@ -3,58 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K. Snacks Document Upload</title>
+    <title>K. Snacks Distributions - Upload</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
             text-align: center;
+            padding: 20px;
         }
-        input, textarea {
+        input, textarea, button {
             width: 80%;
+            max-width: 500px;
+            margin: 10px 0;
             padding: 10px;
-            margin: 10px;
         }
         button {
-            padding: 10px 15px;
+            background-color: #fdd835;
+            border: none;
             cursor: pointer;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
 
-    <h1>K. Snacks Distributions - Document Upload</h1>
+    <h1>K. Snacks Distributions</h1>
+    <p>Enter your name and upload your document text below:</p>
 
-    <label for="name">Enter Your Name:</label><br>
-    <input type="text" id="name" placeholder="Your Name"><br><br>
+    <label for="name">Your Name:</label><br>
+    <input type="text" id="name" placeholder="Enter your name"><br><br>
 
-    <label for="documentText">Upload Your Document Text:</label><br>
-    <textarea id="documentText" rows="10" placeholder="Paste or type your document here..."></textarea><br>
+    <label for="documentText">Document Text:</label><br>
+    <textarea id="documentText" rows="10" placeholder="Type or paste your document here..."></textarea><br>
 
-    <button onclick="uploadDocument()">Upload</button>
-
-    <p id="status"></p>
+    <button onclick="downloadDocument()">Download Document</button>
 
     <script>
-        function uploadDocument() {
-            const name = document.getElementById("name").value;
-            const text = document.getElementById("documentText").value;
+        function downloadDocument() {
+            const name = document.getElementById("name").value.trim();
+            const text = document.getElementById("documentText").value.trim();
 
             if (!name || !text) {
-                document.getElementById("status").innerText = "Please fill out all fields.";
+                alert("Please enter your name and document text before downloading.");
                 return;
             }
 
-            fetch("/upload", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, text })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("status").innerText = data.message;
-            })
-            .catch(error => console.error("Error:", error));
+            const blob = new Blob([text], { type: "text/plain" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = name + "_document.txt";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         }
     </script>
 
