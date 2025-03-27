@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Upload and View</title>
+    <title>Text Upload</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,79 +27,66 @@
             max-width: 500px;
             margin: 20px auto;
             padding: 20px;
-            background-color: #f7f7f7;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            text-align: left;
-            word-wrap: break-word;
-            height: auto;
-            overflow-y: scroll;
+            background: #f0f0f0;
+            border-radius: 8px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
 
-    <h1>File Upload System</h1>
-    <p>Upload a text file or write your content below. The content will be visible to everyone.</p>
+    <h1>Upload Your Content</h1>
 
-    <label for="name">Your Name (Subject):</label><br>
-    <input type="text" id="name" placeholder="Enter your name"><br><br>
-
-    <label for="fileUpload">Upload a Document (Text File):</label><br>
-    <input type="file" id="fileUpload" accept=".txt"><br><br>
-
-    <label for="textUpload">Or, enter text directly:</label><br>
-    <textarea id="textUpload" placeholder="Enter your text here..."></textarea><br><br>
-
-    <button onclick="uploadContent()">Upload and View Content</button>
+    <input type="text" id="nameInput" placeholder="Enter your name" />
+    <textarea id="textInput" placeholder="Enter your text here" rows="4"></textarea>
+    <button onclick="uploadContent()">Upload</button>
 
     <h2>Uploaded Content</h2>
-    <div id="uploadedContent" class="uploaded-content"></div>
+    <div id="contentDisplay"></div>
 
     <script>
+        // Function to display all stored content
+        function displayContent() {
+            const contentDisplay = document.getElementById('contentDisplay');
+            contentDisplay.innerHTML = '';  // Clear existing content
+
+            const storedData = JSON.parse(localStorage.getItem('uploads')) || [];
+            
+            storedData.forEach(item => {
+                const contentDiv = document.createElement('div');
+                contentDiv.classList.add('uploaded-content');
+                contentDiv.innerHTML = `<strong>${item.name}</strong> <br> ${item.text} <br> <small>${item.date}</small>`;
+                contentDisplay.appendChild(contentDiv);
+            });
+        }
+
+        // Function to handle content upload
         function uploadContent() {
-            const name = document.getElementById("name").value.trim();
-            const fileInput = document.getElementById("fileUpload");
-            const textInput = document.getElementById("textUpload").value.trim();
-            const file = fileInput.files[0];
+            const name = document.getElementById('nameInput').value;
+            const text = document.getElementById('textInput').value;
 
-            // Ensure there's either a name or content to upload
-            if (!name || (!file && !textInput)) {
-                alert("Please enter your name and upload content or text.");
-                return;
+            if (name && text) {
+                const currentDate = new Date();
+                const date = `${currentDate.getDate()}/${currentDate.getMonth()+1}/${currentDate.getFullYear()} ${currentDate.getHours()}:${currentDate.getMinutes()}`;
+
+                const newContent = { name, text, date };
+                const storedData = JSON.parse(localStorage.getItem('uploads')) || [];
+
+                storedData.push(newContent);  // Add the new content
+                localStorage.setItem('uploads', JSON.stringify(storedData));  // Save to localStorage
+
+                displayContent();  // Refresh the content display
+            } else {
+                alert("Please enter both name and text!");
             }
 
-            let content = "";
-            let dateString = new Date().toLocaleString();
-
-            // If a file is uploaded, read its content
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    content = e.target.result;
-                    displayContent(name, dateString, content);
-                };
-                reader.readAsText(file);
-            } else if (textInput) {
-                // If text is entered, just use it
-                content = textInput;
-                displayContent(name, dateString, content);
-            }
+            // Clear the input fields
+            document.getElementById('nameInput').value = '';
+            document.getElementById('textInput').value = '';
         }
 
-        // Display uploaded content with the name and timestamp
-        function displayContent(name, dateString, content) {
-            const contentDiv = document.getElementById("uploadedContent");
-            const contentElement = document.createElement("div");
-
-            contentElement.innerHTML = `
-                <h3>${name}</h3>
-                <p><strong>Uploaded on:</strong> ${dateString}</p>
-                <pre>${content}</pre>
-                <hr>
-            `;
-            contentDiv.appendChild(contentElement);
-        }
+        // Call displayContent on page load to show stored content
+        window.onload = displayContent;
     </script>
 
 </body>
