@@ -35,6 +35,10 @@
             height: 300px;
             overflow-y: scroll;
         }
+        .header-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -42,7 +46,7 @@
     <h1>K. Snacks Distributions - Document Upload</h1>
     <p>Enter your name and upload a text document to view its contents.</p>
 
-    <label for="name">Your Name:</label><br>
+    <label for="name">Your Name (Subject):</label><br>
     <input type="text" id="name" placeholder="Enter your name"><br><br>
 
     <label for="fileUpload">Upload Your Document:</label><br>
@@ -50,6 +54,7 @@
 
     <button onclick="loadFile()">Load Document</button>
 
+    <div id="documentInfo" class="header-info"></div>
     <h2>Uploaded Document Content</h2>
     <div id="documentContent" class="document-view"></div>
 
@@ -68,6 +73,16 @@
 
             reader.onload = function(e) {
                 const content = e.target.result;
+
+                // Display the name, current date/time, and the document content
+                const currentDate = new Date();
+                const dateString = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()} - ${currentDate.getHours()}:${currentDate.getMinutes()}`;
+
+                document.getElementById("documentInfo").innerHTML = `
+                    <strong>Subject:</strong> ${name} <br>
+                    <strong>Uploaded On:</strong> ${dateString}
+                `;
+                
                 document.getElementById("documentContent").textContent = content;
             };
 
