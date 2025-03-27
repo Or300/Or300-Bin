@@ -91,8 +91,10 @@
     </div>
 
     <script>
-        let contentData = [];
+        // Retrieve content from localStorage (if available)
+        let contentData = JSON.parse(localStorage.getItem('contentData')) || [];
 
+        // Function to upload content
         function uploadContent() {
             const name = document.getElementById("name").value;
             const content = document.getElementById("content").value;
@@ -108,12 +110,17 @@
                 };
 
                 contentData.push(contentItem);
+
+                // Save the updated contentData to localStorage
+                localStorage.setItem('contentData', JSON.stringify(contentData));
+
                 displayContent();
             } else {
                 alert("Please fill in both name and content.");
             }
         }
 
+        // Function to display content
         function displayContent() {
             const uploadedContentDiv = document.getElementById("uploaded-content");
             uploadedContentDiv.innerHTML = '';
@@ -138,6 +145,9 @@
                 uploadedContentDiv.appendChild(contentDiv);
             });
         }
+
+        // Display content on page load
+        window.onload = displayContent;
     </script>
 </body>
 </html>
