@@ -3,18 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Number Generator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>K. Snacks Document Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        input, textarea {
+            width: 80%;
+            padding: 10px;
+            margin: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Random Number Generator</h1>
-        <div class="generator">
-            <button onclick="generateRandomNumber()">Generate</button>
-            <p id="randomNumber">0</p>
-        </div>
-    </div>
 
-    <script src="script.js"></script>
+    <h1>K. Snacks Distributions - Document Upload</h1>
+
+    <label for="name">Enter Your Name:</label><br>
+    <input type="text" id="name" placeholder="Your Name"><br><br>
+
+    <label for="documentText">Upload Your Document Text:</label><br>
+    <textarea id="documentText" rows="10" placeholder="Paste or type your document here..."></textarea><br>
+
+    <button onclick="uploadDocument()">Upload</button>
+
+    <p id="status"></p>
+
+    <script>
+        function uploadDocument() {
+            const name = document.getElementById("name").value;
+            const text = document.getElementById("documentText").value;
+
+            if (!name || !text) {
+                document.getElementById("status").innerText = "Please fill out all fields.";
+                return;
+            }
+
+            fetch("/upload", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, text })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("status").innerText = data.message;
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+
 </body>
 </html>
