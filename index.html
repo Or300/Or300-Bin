@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K. Snacks Distributions - Upload</title>
+    <title>K. Snacks Distributions - Upload and View Document</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,38 +22,56 @@
             cursor: pointer;
             font-size: 16px;
         }
+        .document-view {
+            width: 80%;
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f7f7f7;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            text-align: left;
+            word-wrap: break-word;
+            height: 300px;
+            overflow-y: scroll;
+        }
     </style>
 </head>
 <body>
 
-    <h1>K. Snacks Distributions</h1>
-    <p>Enter your name and upload your document text below:</p>
+    <h1>K. Snacks Distributions - Document Upload</h1>
+    <p>Enter your name and upload a text document to view its contents.</p>
 
     <label for="name">Your Name:</label><br>
     <input type="text" id="name" placeholder="Enter your name"><br><br>
 
-    <label for="documentText">Document Text:</label><br>
-    <textarea id="documentText" rows="10" placeholder="Type or paste your document here..."></textarea><br>
+    <label for="fileUpload">Upload Your Document:</label><br>
+    <input type="file" id="fileUpload" accept=".txt"><br><br>
 
-    <button onclick="downloadDocument()">Download Document</button>
+    <button onclick="loadFile()">Load Document</button>
+
+    <h2>Uploaded Document Content</h2>
+    <div id="documentContent" class="document-view"></div>
 
     <script>
-        function downloadDocument() {
+        function loadFile() {
             const name = document.getElementById("name").value.trim();
-            const text = document.getElementById("documentText").value.trim();
+            const fileInput = document.getElementById("fileUpload");
+            const file = fileInput.files[0];
 
-            if (!name || !text) {
-                alert("Please enter your name and document text before downloading.");
+            if (!name || !file) {
+                alert("Please enter your name and upload a document before viewing.");
                 return;
             }
 
-            const blob = new Blob([text], { type: "text/plain" });
-            const a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = name + "_document.txt";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const content = e.target.result;
+                document.getElementById("documentContent").textContent = content;
+            };
+
+            reader.readAsText(file);
         }
     </script>
 
