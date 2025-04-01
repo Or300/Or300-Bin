@@ -3,119 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link Previewer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>K. Snacks Distributions</title>
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
+            background-color: #f4f4f4;
         }
-        .container {
-            width: 80%;
-            margin: 20px auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
             text-align: center;
         }
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .preview {
-            display: flex;
-            align-items: center;
-            margin-top: 20px;
-        }
-        .preview img {
-            width: 120px;
-            height: 120px;
-            margin-right: 20px;
-            border-radius: 10px;
-        }
-        .preview .details {
-            max-width: 600px;
-        }
-        .preview .details h2 {
+        h1 {
             margin: 0;
-            font-size: 18px;
-            font-weight: bold;
         }
-        .preview .details p {
-            font-size: 14px;
-            color: #555;
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .preview .details a {
-            color: #007bff;
-            text-decoration: none;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
         }
-        .preview .details a:hover {
-            text-decoration: underline;
+        table, th, td {
+            border: 1px solid #ddd;
         }
-        button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+        th, td {
+            padding: 8px;
+            text-align: center;
         }
-        button:hover {
-            background-color: #0056b3;
+        th {
+            background-color: #f2f2f2;
+        }
+        .terms {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Link Previewer</h1>
-        <input type="text" id="urlInput" placeholder="Enter a URL..." />
-        <button onclick="fetchLinkPreview()">Generate Preview</button>
-        <div id="previewContainer"></div>
-    </div>
 
-    <script>
-        function fetchLinkPreview() {
-            const url = document.getElementById('urlInput').value;
-            const apiKey = '3a9f2458fb3820043d39167abc79e1a7'; // Your API key here
-            if (url) {
-                // Call the LinkPreview API to fetch metadata
-                fetch(`https://api.linkpreview.net/?key=${apiKey}&q=${encodeURIComponent(url)}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const previewContainer = document.getElementById('previewContainer');
-                        previewContainer.innerHTML = ''; // Clear any existing previews
+    <header>
+        <h1>K. Snacks Distributions</h1>
+        <p>SALES AND DEMAND, STOCKS</p>
+    </header>
 
-                        if (data && data.image) {
-                            // Generate the preview
-                            const previewHTML = `
-                                <div class="preview">
-                                    <img src="${data.image}" alt="${data.title}">
-                                    <div class="details">
-                                        <h2>${data.title}</h2>
-                                        <p>${data.description}</p>
-                                        <a href="${data.url}" target="_blank">Visit Website</a>
-                                    </div>
-                                </div>
-                            `;
-                            previewContainer.innerHTML = previewHTML;
-                        } else {
-                            previewContainer.innerHTML = '<p>Could not fetch the preview. Please try again.</p>';
-                        }
-                    })
-                    .catch(error => {
-                        document.getElementById('previewContainer').innerHTML = '<p>Error fetching preview. Please try again.</p>';
-                    });
-            }
-        }
-    </script>
+    <section>
+        <h2>Current Inventory</h2>
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Rating</th>
+                <th>Price</th>
+            </tr>
+            <tr>
+                <td>Jolly Ranchers (7 oz)</td>
+                <td>8.5/10</td>
+                <td>$3</td>
+            </tr>
+            <tr>
+                <td>Gum (15 count)</td>
+                <td>10/10</td>
+                <td>$3</td>
+            </tr>
+            <tr>
+                <td>Gummies (5 oz)</td>
+                <td>7.5/10</td>
+                <td>$3</td>
+            </tr>
+            <tr>
+                <td>Takis (3.25 oz)</td>
+                <td>9.5/10</td>
+                <td>$3.50 - $9</td>
+            </tr>
+            <tr>
+                <td>Tic Tacs (1.7 oz)</td>
+                <td>8/10</td>
+                <td>$2</td>
+            </tr>
+            <tr>
+                <td>Warheads (2 oz)</td>
+                <td>8/10</td>
+                <td>$3.50</td>
+            </tr>
+            <tr>
+                <td>Peach Rings (4.25 oz)</td>
+                <td>6.5/10</td>
+                <td>$3</td>
+            </tr>
+            <tr>
+                <td>Chocolate (2.2-2.8 oz)</td>
+                <td>7.5/10</td>
+                <td>$2.75 - $3.50</td>
+            </tr>
+            <tr>
+                <td>Airhead Bites (2 oz)</td>
+                <td>8/10</td>
+                <td>$3</td>
+            </tr>
+            <tr>
+                <td>Airhead Xtreme (6 oz)</td>
+                <td>7.5/10</td>
+                <td>$3.50</td>
+            </tr>
+            <tr>
+                <td>Frito Lay Chips (3 ⅞ oz)</td>
+                <td>8.5/10</td>
+                <td>$2 - $2.50</td>
+            </tr>
+            <tr>
+                <td>Soda (20 oz)</td>
+                <td>9.5/10</td>
+                <td>$2.75 - $3.50</td>
+            </tr>
+        </table>
+
+        <p>Above is all of the items we CURRENTLY sell. This list is subject to change in the future. More items will be sold in the future. This chart lists demand, cost, and the item.</p>
+
+        <h2>Seller Terms and Conditions</h2>
+        <div class="terms">
+            <p>By working with K. Snacks Distributions, you agree to abide by the following rules and guidelines to ensure smooth operations and fair sales practices.</p>
+
+            <h3>1. Responsibilities of Sellers</h3>
+            <ul>
+                <li>All sellers must manage inventory responsibly and ensure accurate stock levels.</li>
+                <li>Sellers are responsible for maintaining fair and transparent transactions with customers.</li>
+                <li>Honesty and professionalism are expected at all times during sales and handling of products.</li>
+            </ul>
+
+            <h3>2. Handling & Security of Products</h3>
+            <ul>
+                <li>Stealing, misplacing, or consuming products without payment is strictly prohibited and will result in a strike.</li>
+                <li>Sellers must ensure all products are stored properly and in the correct location.</li>
+                <li>Any missing or misplaced items must be reported immediately.</li>
+                <li>Eating any product that has not been purchased is considered theft and will result in disciplinary action.</li>
+            </ul>
+
+            <h3>3. Strike System & Consequences</h3>
+            <p>A five-strike system is in place to maintain accountability among sellers. Strike Offenses Include:</p>
+            <ul>
+                <li>Stealing or misplacing stock.</li>
+                <li>Eating or taking products without paying.</li>
+                <li>Providing unauthorized discounts or giving away products for free.</li>
+                <li>Mishandling money or failing to report sales accurately.</li>
+                <li>Repeated unprofessional behavior during transactions.</li>
+            </ul>
+            <p>Strike Consequences:</p>
+            <ul>
+                <li>1st Strike: Verbal warning.</li>
+                <li>2nd Strike: Written warning and review of performance.</li>
+                <li>3rd Strike: Deduction from earnings or temporary suspension from selling.</li>
+                <li>4th Strike: One-month suspension from selling.</li>
+                <li>5th Strike: Permanent removal from K. Snacks Distributions.</li>
+            </ul>
+
+            <h3>4. Product Ownership</h3>
+            <p>All product is owned by the owner. Any unsold items are returned to the owner.</p>
+
+            <h3>5. Reporting & Accountability</h3>
+            <ul>
+                <li>Sellers must accurately report sales, stock levels, and any issues to staff.</li>
+            </ul>
+        </div>
+    </section>
+
 </body>
 </html>
