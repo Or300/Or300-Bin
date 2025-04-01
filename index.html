@@ -85,16 +85,17 @@
     <script>
         function fetchLinkPreview() {
             const url = document.getElementById('urlInput').value;
+            const apiKey = '3a9f2458fb3820043d39167abc79e1a7'; // Your API key here
             if (url) {
-                // Call an API or use a link preview service to fetch data (title, description, image, etc.)
-                fetch(`https://api.linkpreview.net/?key=YOUR_API_KEY&q=${url}`)
+                // Call the LinkPreview API to fetch metadata
+                fetch(`https://api.linkpreview.net/?key=${apiKey}&q=${encodeURIComponent(url)}`)
                     .then(response => response.json())
                     .then(data => {
                         const previewContainer = document.getElementById('previewContainer');
                         previewContainer.innerHTML = ''; // Clear any existing previews
 
                         if (data && data.image) {
-                            // Generate preview
+                            // Generate the preview
                             const previewHTML = `
                                 <div class="preview">
                                     <img src="${data.image}" alt="${data.title}">
